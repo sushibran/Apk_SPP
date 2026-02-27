@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2023 at 09:09 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.0.19
+-- Waktu pembuatan: 27 Feb 2026 pada 02.18
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,17 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
   `id_kelas` int(11) NOT NULL,
   `nama_kelas` varchar(10) NOT NULL,
   `kompetensi_keahlian` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -57,21 +57,22 @@ CREATE TABLE `pembayaran` (
   `tahun_dibayar` varchar(4) NOT NULL,
   `id_spp` int(11) NOT NULL,
   `jumlah_bayar` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pembayaran`
+-- Dumping data untuk tabel `pembayaran`
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
 (7, 10201, '4567890', '2023-02-28', 'Februari', '2023', 2, 200000),
 (9, 10201, '0045450166', '2023-03-03', 'Maret', '2023', 2, 50000),
-(10, 10202, '0045450166', '2023-03-18', 'Maret', '2023', 2, 230000);
+(10, 10202, '0045450166', '2023-03-18', 'Maret', '2023', 2, 230000),
+(11, 10201, '10206080', '2026-02-24', 'Januari', '2020', 2, 500000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `petugas`
+-- Struktur dari tabel `petugas`
 --
 
 CREATE TABLE `petugas` (
@@ -80,10 +81,10 @@ CREATE TABLE `petugas` (
   `password` varchar(32) NOT NULL,
   `nama_petugas` varchar(35) NOT NULL,
   `level` enum('admin','petugas') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `petugas`
+-- Dumping data untuk tabel `petugas`
 --
 
 INSERT INTO `petugas` (`id_petugas`, `username`, `password`, `nama_petugas`, `level`) VALUES
@@ -94,7 +95,7 @@ INSERT INTO `petugas` (`id_petugas`, `username`, `password`, `nama_petugas`, `le
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
@@ -106,30 +107,29 @@ CREATE TABLE `siswa` (
   `password` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `no_telp` varchar(13) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
 INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `id_spp`, `password`, `alamat`, `no_telp`) VALUES
-('0045450166', '10206010', 'M. Gibran Fajar', 2, 2, 'f3c706e75719e9d45bc60b446bbf5fc7', 'btkl', '345678'),
-('4567890', '12345678', 'Septian', 2, 2, 'a14b1bbaad4c127657d9c8d907fc6a75', 'btkl', '12345678');
+('10206080', '12345676', 'Rezza', 2, 2, 'e10adc3949ba59abbe56e057f20f883e', 'Cikadongdong', '098765432');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spp`
+-- Struktur dari tabel `spp`
 --
 
 CREATE TABLE `spp` (
   `id_spp` int(11) NOT NULL,
   `tahun` int(11) NOT NULL,
   `nominal` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `spp`
+-- Dumping data untuk tabel `spp`
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
@@ -142,59 +142,59 @@ INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
 --
 
 --
--- Indexes for table `kelas`
+-- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`);
 
 --
--- Indexes for table `petugas`
+-- Indeks untuk tabel `petugas`
 --
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id_petugas`);
 
 --
--- Indexes for table `siswa`
+-- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`nisn`);
 
 --
--- Indexes for table `spp`
+-- Indeks untuk tabel `spp`
 --
 ALTER TABLE `spp`
   ADD PRIMARY KEY (`id_spp`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `kelas`
+-- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `petugas`
+-- AUTO_INCREMENT untuk tabel `petugas`
 --
 ALTER TABLE `petugas`
   MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10205;
 
 --
--- AUTO_INCREMENT for table `spp`
+-- AUTO_INCREMENT untuk tabel `spp`
 --
 ALTER TABLE `spp`
   MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;

@@ -1,7 +1,7 @@
 <?php
 include "../koneksi.php";
 session_start();
-if (!isset($_SESSION['nis'])) {
+if (!isset($_SESSION['nisn'])) {
     header("location:../index.php");
 }
 $nisn = $_SESSION['nisn'];
@@ -32,18 +32,18 @@ $nisn = $_SESSION['nisn'];
             AND pembayaran.id_spp=spp.id_spp AND pembayaran.id_petugas=petugas.id_petugas AND pembayaran.nisn='$nisn' 
             ORDER BY tgl_bayar ASC";
     $query = mysqli_query($koneksi, $sql);
-    $data = mysqli_fetch_array($query);
     $cek = mysqli_num_rows($query);
-
-    $data_pembayaran = mysqli_query($koneksi, "SELECT SUM(jumlah_bayar) as jumlah_bayar 
-         FROM pembayaran WHERE nisn='$data[nisn]'");
-
-    $data_pembayaran = mysqli_fetch_array($data_pembayaran);
-
-    $sudah_bayar = $data_pembayaran['jumlah_bayar'];
-
-    $kekurangan = $data['nominal'] - $data_pembayaran['jumlah_bayar'];
+    
     if ($cek > 0) {
+        $data = mysqli_fetch_array($query);
+        $data_pembayaran = mysqli_query($koneksi, "SELECT SUM(jumlah_bayar) as jumlah_bayar 
+             FROM pembayaran WHERE nisn='$nisn'");
+        $data_pembayaran = mysqli_fetch_array($data_pembayaran);
+        $sudah_bayar = $data_pembayaran['jumlah_bayar'];
+        $kekurangan = $data['nominal'] - $data_pembayaran['jumlah_bayar'];
+    }
+    if ($cek > 0) {
+        mysqli_data_seek($query, 0);
     ?>
         <div class="container mt-5">
             <div class="text-end mb-2">
