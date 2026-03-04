@@ -49,6 +49,19 @@ $nisn = $_SESSION['nisn'];
             <div class="text-end mb-2">
                 <a href="cetak_laporan.php?nisn=<?= $data['nisn'] ?>" class="btn btn-success">Cetak Laporan</a>
             </div>
+            
+            <!-- API Status Alert -->
+            <div id="apiAlert" class="alert alert-info" style="display: none;">
+                <strong>API Status:</strong> <span id="apiStatus"></span>
+            </div>
+            
+            <!-- API Button -->
+            <div class="mb-3">
+                <button type="button" class="btn btn-info btn-sm" onclick="loadDataFromAPI()">
+                    <i class="fas fa-sync"></i> Load via API
+                </button>
+            </div>
+            
             <table class="table table-striped table-bordered">
                 <tr class="fw-bold">
                     <th>No</th>
@@ -104,5 +117,105 @@ $nisn = $_SESSION['nisn'];
         ?>
 
         </div>
-        <script src="../style/js/bootstrap.bundle.min.js"></script>
+        
+        <script>
+        /**
+         * Load payment data from API
+         * This demonstrates how to use the API from the frontend
+         */
+        async function loadDataFromAPI() {
+            const apiAlert = document.getElementById('apiAlert');
+            const apiStatus = document.getElementById('apiStatus');
+            
+            try {
+                // Show loading state
+                apiStatus.textContent = 'Loading...';
+                apiAlert.style.display = 'block';
+                
+                // Get NISN from session
+                const nisn = '<?= $nisn ?>';
+                
+                // Call API endpoint
+                const response = await fetch('../api/pembayaran', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // Include session cookies
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    apiStatus.textContent = 'Successfully loaded ' + data.data.length + ' payment records from API';
+                    apiAlert.className = 'alert alert-success';
+                    
+                    // Log the API response
+                    console.log('API Response:', data);
+                    
+                    // You can now use data.data to update the table
+                    // Example: updateTableWithAPIData(data.data);
+                } else {
+                    apiStatus.textContent = 'API Error: ' + (data.message || 'Unknown error');
+                    apiAlert.className = 'alert alert-danger';
+                }
+            } catch (error) {
+                apiStatus.textContent = 'Connection Error: ' + error.message;
+                apiAlert.className = 'alert alert-danger';
+                console.error('API Error:', error);
+            }
+        }
+        
+        /**
+         * Get user profile from API
+         */
+        async function getUserProfile() {
+            try {
+                const response = await fetch('../api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                console.log('User Profile:', data);
+                return data.data;
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+            }
+        }
+        
+        /**
+         * Update table with API data
+         */
+        function updateTableWithAPIData(payments) {
+            const tbody = document.querySelector('table tbody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            let no = 1;
+            
+            payments.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${no++}</td>
+                    <td>${payment.nisn}</td>
+                    <td>${payment.nama}</td>
+                    <td>${payment.nama_kelas}</td>
+                    <td>${payment.tahun}</td>
+                    <td>${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(payment.nominal)}</td>
+                    <td>${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(payment.jumlah_bayar)}</td>
+                    <td>${payment.tgl_bayar}</td>
+                    <td>${payment.bulan_dibayar}</td>
+                    <td>${payment.nama_petugas}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Uncomment to auto-load API data on page load
+        // window.addEventListener('load', loadDataFromAPI);
+        </script>
 </body>

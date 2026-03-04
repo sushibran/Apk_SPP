@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "SPP API Collection",
+    "description": "Complete collection for SPP Application REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login Siswa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\": \"10206080\", \"password\": \"123456\", \"type\": \"siswa\"}"
+            },
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Petugas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\": \"sushibran\", \"password\": \"123456\", \"type\": \"petugas\"}"
+            },
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/auth/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Siswa",
+      "item": [
+        {
+          "name": "Get All Siswa",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/siswa",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "siswa"]
+            }
+          }
+        },
+        {
+          "name": "Get Siswa Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/siswa/10206080",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "siswa", "10206080"]
+            }
+          }
+        },
+        {
+          "name": "Create Siswa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nisn\": \"1234567890\", \"nis\": \"87654321\", \"nama\": \"John Doe\", \"id_kelas\": 1, \"id_spp\": 2, \"password\": \"password123\", \"alamat\": \"Jl. Merdeka\", \"no_telp\": \"081234567890\"}"
+            },
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/siswa",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "siswa"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard & Reports",
+      "item": [
+        {
+          "name": "Get Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/dashboard",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Siswa Belum Lunas Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/report?type=siswa-belum-lunas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "report"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "siswa-belum-lunas"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Siswa",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/csv"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost/Apk_SPP/api/export?action=export-siswa",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["Apk_SPP", "api", "export"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "export-siswa"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
