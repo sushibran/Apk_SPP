@@ -28,13 +28,18 @@ mysqli_set_charset($koneksi, "utf8");
 
 // API Response class
 class ApiResponse {
-    public static function success($data = null, $message = 'Success', $code = 200) {
+    public static function success($data = null, $message = 'Success', $code = 200, $meta = null) {
         http_response_code($code);
-        return [
+        $response = [
             'status' => 'success',
             'message' => $message,
             'data' => $data
         ];
+        if ($meta !== null) {
+            // include optional metadata (e.g. pagination, summaries)
+            $response['meta'] = $meta;
+        }
+        return $response;
     }
 
     public static function error($message = 'Error', $code = 400, $data = null) {

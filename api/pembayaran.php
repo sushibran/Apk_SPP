@@ -83,8 +83,30 @@ function getAllPembayaran() {
     
     $pembayaran = queryAll($query);
     
+    // if the authenticated user is a student, compute a quick summary
+    $meta = null;
+    if ($user && $user['type'] === 'siswa') {
+        $totalPaid = 0;
+        $nominal = 0;
+        foreach ($pembayaran as $row) {
+            $totalPaid += (float)$row['jumlah_bayar'];
+            if ($nominal === 0 && isset($row['nominal'])) {
+                // nominal is the expected SPP amount (assumed same for all rows)
+                $nominal = (float)$row['nominal'];
+            }
+        }
+        $kekurangan = $nominal - $totalPaid;
+        $status = $kekurangan <= 0 ? 'lunas' : 'belum_lunas';
+        $meta = [
+            'total_paid' => $totalPaid,
+            'nominal' => $nominal,
+            'kekurangan' => $kekurangan,
+            'status' => $status
+        ];
+    }
+    
     ApiResponse::sendResponse(
-        ApiResponse::success($pembayaran, 'Pembayaran data retrieved', 200)
+        ApiResponse::success($pembayaran, 'Pembayaran data retrieved', 200, $meta)
     );
 }
 

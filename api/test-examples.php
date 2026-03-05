@@ -57,7 +57,7 @@ if ($siswa_token) {
     echo $response . "\n\n";
 }
 
-// Example 4: Get Pembayaran History
+// Example 4: Get Pembayaran History (siswa will receive a `meta` summary field)
 if ($siswa_token) {
     echo "=== GET PEMBAYARAN HISTORY ===\n";
     $ch = curl_init();

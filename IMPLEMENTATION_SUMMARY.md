@@ -38,10 +38,14 @@
 2. **api/Postman_Collection.json** - Postman collection for testing
 3. **siswa/index.php** - Updated with API integration examples
 
-### ✅ Updated Existing Files (3 files)
+### ✅ Updated Existing Files (now 4 files)
 1. **koneksi.php** - Enhanced with better error handling
 2. **aksi_login.php** - Improved with session management
 3. **aksi_login_petugas.php** - Enhanced login handler
+4. **siswa/index.php** - Frontend rewritten to consume API JSON, status badge added, responsive layout (no direct DB access)
+
+### 🔄 API Enhancements
+- **GET /api/pembayaran** now returns an optional `meta` object for student users. The metadata includes total payments, nominal amount, remaining balance, and `status` (`lunas` or `belum_lunas`). Response format remains backward‑compatible.
 
 ---
 

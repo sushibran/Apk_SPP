@@ -20,7 +20,7 @@
 ## Overview
 
 SPP adalah sistem manajemen pembayaran pembangunan berbasis web yang memungkinkan:
-- **Siswa** untuk melihat status pembayaran SPP mereka
+- **Siswa** untuk melihat status pembayaran SPP mereka (halaman siswa sekarang mengambil data melalui API dan menampilkan status berwarna hijau/merah)
 - **Petugas** untuk mencatat dan mengelola pembayaran
 - **Admin** untuk mengelola master data dan membuat laporan
 
@@ -51,6 +51,8 @@ Sistem ini kini dilengkapi dengan **REST API** yang komprehensif untuk integrasi
 - [x] Laporan pembayaran per bulan
 - [x] Top siswa & top pembayaran
 - [x] Sisa pembayaran calculation
+- [x] Frontend siswa menggunakan API dan responsif
+
 - [x] Database error handling
 
 ## Instalasi

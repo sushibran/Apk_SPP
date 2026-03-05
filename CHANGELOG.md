@@ -47,6 +47,8 @@
 
 #### Payment Management (CRUD)
 - ✨ `GET /api/pembayaran` - Get payments (role-based filtering)
+- 🛠️ Added `meta` summary object to payments response for siswa (total_paid, nominal, kekurangan, status)
+- 🔄 Frontend: siswa/index.php rewritten to consume API and display color‑coded payment status badge
 - ✨ `GET /api/pembayaran/{id}` - Get payment detail
 - ✨ `POST /api/pembayaran` - Create new payment (petugas only)
 - ✨ `PUT /api/pembayaran/{id}` - Update payment (admin only)

@@ -515,9 +515,19 @@ Get list of payments.
       "nominal": 500000,
       "nama_petugas": "Gibran"
     }
-  ]
+  ],
+  "meta": {
+    "total_paid": 2000000,
+    "nominal": 2000000,
+    "kekurangan": 0,
+    "status": "lunas"
+  }
 }
 ```
+
+> **Note:** when a **siswa** is authenticated the response may include an extra
+> `meta` object summarising their payment status. Fields are listed above and
+> help frontend clients quickly determine whether the SPP is fully paid.
 
 ### Get Pembayaran Detail - GET /pembayaran/{id}
 Get detail of specific payment.
