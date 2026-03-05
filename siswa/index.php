@@ -51,14 +51,26 @@ async function fetchPayments() {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         });
-        const result = await response.json();
+
+        // ensure we have JSON before parsing
+        const contentType = response.headers.get('content-type') || '';
+        let result;
+        if (contentType.includes('application/json')) {
+            result = await response.json();
+        } else {
+            // unexpected HTML or text (often a redirect to login page)
+            const text = await response.text();
+            throw new Error('Non-JSON response from server: ' + text.substring(0, 200));
+        }
+
         if (!response.ok) {
             showError('API Error: ' + (result.message || 'Unknown'));
             return;
         }
         renderPayments(result.data, result.meta || null);
     } catch (err) {
-        showError('Koneksi gagal: ' + err.message);
+        // special case: parse error may reveal HTML
+        showError('API Status: Connection Error: ' + err.message);
         console.error(err);
     }
 }
