@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Aplikasi Pembayaran SPP</title>
+  <title>Aplikasi Informasi Pembayaran SPP</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
   <link href="style/css/bootstrap.min.css" rel="stylesheet">
   <link href="style/css/sign-in.css" rel="stylesheet">
@@ -13,7 +13,7 @@
   <main class="form-signin w-100 m-auto">
     <form action="aksi_login_petugas.php" method="post">
       <img class="mb-2" src="style/gambar/logo_spp.png" alt="" width="120" height="100">
-      <h4 class="fw-normal">Aplikasi Pembayaran SPP</h4>
+      <h4 class="fw-normal">Aplikasi Informasi Pembayaran SPP</h4>
       <?php
       $file = @$_GET['pesan'];
       if ($file) {

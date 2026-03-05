@@ -10,7 +10,7 @@ $level = $_SESSION['level'];
 <html>
 
 <head>
-    <title>Aplikasi Pembayaran SPP</title>
+    <title>Aplikasi Informasi Pembayaran SPP</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
     <link rel="stylesheet" href="../style/css/bootstrap.min.css">
     <link href="../style/css/dashboard.css" rel="stylesheet">
@@ -21,7 +21,7 @@ $level = $_SESSION['level'];
 
 <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 px-3 fs-6" href="index.php">Aplikasi Pembayaran SPP</a>
+        <a class="navbar-brand col-md-3 col-lg-2 px-3 fs-6" href="index.php">Aplikasi Informasi Pembayaran SPP</a>
         <div class="navbar-nav">
             <div class="nav-item text-nowrap">
                 <span class="nav-link px-3"><?= $_SESSION['nama_petugas'] ?> | <a class="text-light" href="logout.php" onClick="return confirm('Anda yakin akan mau Log out??')"> Sign out</a></span>
@@ -180,7 +180,7 @@ $level = $_SESSION['level'];
                             </div>
                             <div class="mt-2 p-2 p-md-2 mb-4 rounded text-bg-dark">
                                 <div class="col-md-6 px-2">
-                                    <h1 class="display-4 fst-italic">Aplikasi Pembayaran SPP</h1>
+                                    <h1 class="display-4 fst-italic">Aplikasi Informasi Pembayaran SPP</h1>
                                     <p class="lead my-3">Adalah suatu sistem yang dapat anda gunakan untuk melakukan transaksi pembayaran SPP(Surat Pembinaan Pendidikan).</p>
                                 </div>
                             </div>
