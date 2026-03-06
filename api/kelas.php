@@ -3,7 +3,7 @@ require_once 'config.php';
 require_once 'utils.php';
 
 // Parse URL for ID
-$id = isset($path[4]) ? $path[4] : null;
+$id = isset($path[1]) ? $path[1] : null;
 
 switch ($method) {
     case 'GET':

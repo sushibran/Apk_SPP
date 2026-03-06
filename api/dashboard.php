@@ -7,14 +7,15 @@ switch ($method) {
     case 'GET':
         handleDashboard();
         break;
-    
+
     default:
         ApiResponse::sendResponse(
             ApiResponse::error('Method not allowed', 405)
         );
 }
 
-function handleDashboard() {
+function handleDashboard()
+{
     $user = getAuthUser();
     if (!$user) {
         ApiResponse::sendResponse(
@@ -47,13 +48,19 @@ function handleDashboard() {
 
     // Belum lunas
     $belum_lunas = queryFirst("
-        SELECT COUNT(DISTINCT s.nisn) as total 
-        FROM siswa s 
-        LEFT JOIN pembayaran p ON s.nisn = p.nisn 
-        LEFT JOIN spp sp ON s.id_spp = sp.id_spp 
-        GROUP BY s.nisn 
-        HAVING (SELECT SUM(jumlah_bayar) FROM pembayaran WHERE nisn = s.nisn) < COALESCE(sp.nominal, 0)
-    ");
+    SELECT COUNT(*) as total
+    FROM (
+        SELECT 
+            s.nisn,
+            sp.nominal,
+            COALESCE(SUM(p.jumlah_bayar),0) AS total_bayar
+        FROM siswa s
+        LEFT JOIN pembayaran p ON s.nisn = p.nisn
+        LEFT JOIN spp sp ON s.id_spp = sp.id_spp
+        GROUP BY s.nisn, sp.nominal
+        HAVING total_bayar < nominal
+    ) t
+");
     $stats['belum_lunas'] = $belum_lunas['total'] ?? 0;
 
     // Sudah lunas
@@ -95,5 +102,3 @@ function handleDashboard() {
         ApiResponse::success($stats, 'Dashboard statistics retrieved', 200)
     );
 }
-
-?>

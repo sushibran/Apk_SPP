@@ -3,11 +3,17 @@ require_once 'config.php';
 require_once 'utils.php';
 
 // Parse URL to determine the resource and method
-$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$path = explode('/', trim($url, '/'));
+$url_path = isset($_GET['url']) ? $_GET['url'] : parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = explode('/', trim($url_path, '/'));
+
+// Adjust path indices if using direct URL
+if (!isset($_GET['url'])) {
+    // For direct access like /api/auth/login, path starts from 'Apk_SPP'
+    $path = array_slice($path, 2); // Skip 'Apk_SPP' and 'api'
+}
 
 // Get the resource (e.g., 'siswa', 'petugas', 'kelas', 'spp', 'pembayaran', 'auth')
-$resource = isset($path[3]) ? $path[3] : '';
+$resource = isset($path[0]) ? $path[0] : '';
 
 // Route to appropriate handler
 switch ($resource) {

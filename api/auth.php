@@ -3,7 +3,7 @@ require_once 'config.php';
 require_once 'utils.php';
 
 // Parse URL
-$request = isset($path[3]) ? $path[3] : '';
+$request = isset($path[1]) ? $path[1] : '';
 
 switch ($method) {
     case 'POST':
